@@ -37,6 +37,7 @@ export default {
         loop: false,
         observer: true,
         observeParents: true,
+        disableOnInteraction: false,
         direction: "vertical",
         onSlideChangeEnd: function(swiper) {
           swiper.update(); //swiper更新

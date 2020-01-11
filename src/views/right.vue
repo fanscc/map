@@ -63,6 +63,7 @@ export default {
         autoplay: true,
         loop: false,
         observer: true,
+        disableOnInteraction: false,
         observeParents: true,
         onSlideChangeEnd: function(swiper) {
           swiper.update(); //swiper更新

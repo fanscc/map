@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home_center">
     <div class="provinceInfo" v-if="showInfoStatus">
       <div class="top-pro">
         <h3 class="address">{{ title }}</h3>
@@ -14,16 +14,8 @@
           <span>{{ nodeTotal }}</span>
         </li>
       </ul>
-      <span class="line-span top-span"></span>
-      <span class="line-span bottom-span"></span>
-      <span class="line-span left-span"></span>
-      <span class="line-span right-span"></span>
     </div>
-    <div id="center" style="width: 100%;height:500px"></div>
-    <div
-      id="mapcenter"
-      style="width: 90%;height:80%;margin-top: 5%;margin-left: 5%;"
-    ></div>
+    <div id="center" style="width: 100%; height: 550px;"></div>
   </div>
 </template>
 
@@ -380,7 +372,7 @@ export default {
                   },
                   {
                     offset: 1,
-                    color: "blue" // 100% 处的颜色
+                    color: "yellow" // 100% 处的颜色
                   }
                 ],
                 global: false // 缺省为 false
@@ -585,12 +577,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.home_center {
+  width: 40%;
+  position: relative;
+}
 ul,
 li {
   list-style: none;
 }
 .provinceInfo {
   // background: #24419a;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
   background: url("../assets/img/tk_bg.png") center no-repeat;
   background-size: contain;
   width: 335px;
@@ -631,35 +631,6 @@ li {
         display: inline-block;
       }
     }
-  }
-  .line-span {
-    position: absolute;
-    display: inline-block;
-    background: transparent;
-  }
-  .top-span {
-    top: -1.5px;
-    width: 90%;
-    height: 3px;
-    left: 5%;
-  }
-  .bottom-span {
-    bottom: -1.5px;
-    width: 90%;
-    height: 3px;
-    left: 5%;
-  }
-  .left-span {
-    left: -1.5px;
-    width: 3px;
-    height: 90%;
-    top: 5%;
-  }
-  .right-span {
-    right: -1.5px;
-    width: 3px;
-    height: 90%;
-    top: 5%;
   }
 }
 </style>

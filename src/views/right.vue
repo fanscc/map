@@ -108,6 +108,7 @@ export default {
       box-sizing: border-box;
       margin-bottom: 5px;
       padding: 0 10px;
+      cursor: pointer;
     }
     .item_tip:nth-of-type(odd) {
       background: rgba(24, 33, 106, 0.77);

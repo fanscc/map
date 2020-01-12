@@ -3,7 +3,11 @@
     <div>
       <h4>视频监控 <img src="../assets/img/line1.gif" /></h4>
       <div>
-        <video src="movie.ogg" controls="controls" style="height: 100px;">
+        <video
+          src="https://cdn-img.chiyue365.com/marketing/2019-0417.mp4"
+          controls="controls"
+          style="height: 100px;"
+        >
           您的浏览器不支持 video 标签。
         </video>
       </div>

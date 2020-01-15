@@ -313,7 +313,6 @@ export default {
         vm.nodeTotal = 0;
       });
       this.chartInstance.on("click", params => {
-        debugger;
         console.log(params.name);
         this.getMap(params.name);
       });
@@ -330,10 +329,6 @@ export default {
           });
         }
       }
-      res.push({
-        name: "长沙市",
-        value: [112.59, 28.12, 5]
-      });
       return res;
     },
     // 渲染地图
@@ -547,10 +542,11 @@ export default {
       chinaJson.features = features;
     },
     getMap(params) {
-      let index = this.dataToolTip.findIndex(item => {
-        return item.name === params;
-      });
-      let allApi = this.dataToolTip[index]["arrName"].map(item => {
+      // let index = this.dataToolTip.findIndex(item => {
+      //   return item.name === params;
+      // });
+      let arrName = ["广东", "广西", "海南", "福建", "云南", "贵州"];
+      let allApi = arrName.map(item => {
         return this.$axios.get(`/mapJson/provinces/${provinces[item]}.json`);
       });
       Promise.all(allApi).then(res => {

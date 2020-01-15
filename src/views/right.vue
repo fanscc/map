@@ -1,7 +1,12 @@
 <template>
   <div class="right_center">
-    <div>
-      <h4>视频监控 <img src="../assets/img/line1.gif" /></h4>
+    <div class="conten_video">
+      <h4 style="font-size: 20px;">
+        视频监控
+        <div>
+          <img src="../assets/img/line1.gif" />
+        </div>
+      </h4>
       <div>
         <video
           src="https://cdn-img.chiyue365.com/marketing/2019-0417.mp4"
@@ -12,16 +17,21 @@
         </video>
       </div>
     </div>
-    <div>
-      <h4>任务 <img src="../assets/img/line1.gif" /></h4>
+    <div class="conten_renwu">
+      <h4>
+        任务
+        <div>
+          <img src="../assets/img/line1.gif" />
+        </div>
+      </h4>
       <div class="right-top">
         <div class="swiper-container swiper1">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <div v-for="item in 3" :key="item" class="item_tip">打卡</div>
+              <div v-for="item in 6" :key="item" class="item_tip">打卡</div>
             </div>
             <div class="swiper-slide">
-              <div v-for="item in 3" :key="item" class="item_tip">扫描</div>
+              <div v-for="item in 6" :key="item" class="item_tip">扫描</div>
             </div>
           </div>
         </div>
@@ -29,17 +39,22 @@
         <span class="top-right"></span>
       </div>
     </div>
-    <div>
-      <h4>告警 <img src="../assets/img/line1.gif" /></h4>
+    <div class="conten_tip">
+      <h4>
+        告警
+        <div>
+          <img src="../assets/img/line1.gif" />
+        </div>
+      </h4>
       <div>
         <div class="right-top">
           <div class="swiper-container swiper1">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <div v-for="item in 3" :key="item" class="item_tip">高温</div>
+                <div v-for="item in 6" :key="item" class="item_tip">高温</div>
               </div>
               <div class="swiper-slide">
-                <div v-for="item in 3" :key="item" class="item_tip">缺水</div>
+                <div v-for="item in 6" :key="item" class="item_tip">缺水</div>
               </div>
             </div>
           </div>
@@ -81,7 +96,15 @@ export default {
 
 <style lang="scss" scoped>
 .right_center {
-  width: 30%;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .conten_renwu,
+  .conten_tip {
+    flex: 1;
+    font-size: 20px;
+  }
   .right-top {
     position: relative;
     padding: 0 50px;
@@ -94,6 +117,7 @@ export default {
       height: 45px;
       margin-top: -22.5px;
       outline: none;
+      cursor: pointer;
     }
     .top-left {
       background: url(../assets/img/u122.png) no-repeat center;
@@ -113,6 +137,7 @@ export default {
       box-sizing: border-box;
       margin-bottom: 5px;
       padding: 0 10px;
+      font-size: 16px;
       cursor: pointer;
     }
     .item_tip:nth-of-type(odd) {
@@ -120,6 +145,9 @@ export default {
     }
     .item_tip:nth-of-type(even) {
       background: rgba(59, 64, 136, 0.57);
+    }
+    .item_tip:hover {
+      background: rgba(149, 146, 59, 0.5) !important;
     }
   }
 }

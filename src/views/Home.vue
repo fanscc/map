@@ -15,7 +15,7 @@
         </li>
       </ul>
     </div>
-    <div id="center" style="width: 100%; height: 550px;"></div>
+    <div id="center" style="width: 100%;"></div>
   </div>
 </template>
 
@@ -291,6 +291,8 @@ export default {
         this.mergeProvinces(this.china, params14.names, params14.properties);
         this.mergeProvinces(this.china, params15.names, params15.properties);
         this.mergeProvinces(this.china, params16.names, params16.properties);
+        debugger;
+        console.log(this.china);
         this.$echarts.registerMap("china", this.china);
         this.renderMap("china", this.dataToolTip);
         this.initAction();
@@ -311,6 +313,7 @@ export default {
         vm.nodeTotal = 0;
       });
       this.chartInstance.on("click", params => {
+        debugger;
         console.log(params.name);
         this.getMap(params.name);
       });
@@ -335,6 +338,7 @@ export default {
     },
     // 渲染地图
     renderMap(mamName, data) {
+      debugger;
       let vm = this;
       this.baseOption.series = [
         {
@@ -558,7 +562,6 @@ export default {
         let data;
         res.map(item => {
           data = item.data.features;
-          console.log(data, "lllllllll");
           provincesData.features = [...provincesData.features, ...data];
         });
         this.$echarts.registerMap(params, provincesData);
@@ -578,7 +581,9 @@ export default {
 
 <style lang="scss" scoped>
 .home_center {
-  width: 40%;
+  width: 50%;
+  height: 100%;
+
   position: relative;
 }
 ul,
@@ -588,8 +593,9 @@ li {
 .provinceInfo {
   // background: #24419a;
   position: absolute;
-  top: 0px;
+  top: 50px;
   left: 50%;
+  z-index: 8;
   transform: translateX(-50%);
   background: url("../assets/img/tk_bg.png") center no-repeat;
   background-size: contain;
@@ -632,5 +638,8 @@ li {
       }
     }
   }
+}
+#center {
+  height: 100%;
 }
 </style>

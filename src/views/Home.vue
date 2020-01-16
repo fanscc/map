@@ -22,6 +22,7 @@
 <script>
 // @ is an alias to /src
 import provinces from "@/assets/js/provinces";
+import { yellow } from "color-name";
 export default {
   name: "home",
   data() {
@@ -146,7 +147,11 @@ export default {
       tooltip: {
         trigger: "item",
         formatter: function(params) {
-          return params.name + " : " + params.value[2];
+          return (
+            params.name +
+            " : " +
+            (params.value[2] ? params.value[2] : params.value)
+          );
         },
         extraCssText: "height:20px;"
       },
@@ -291,7 +296,6 @@ export default {
         this.mergeProvinces(this.china, params14.names, params14.properties);
         this.mergeProvinces(this.china, params15.names, params15.properties);
         this.mergeProvinces(this.china, params16.names, params16.properties);
-        debugger;
         console.log(this.china);
         this.$echarts.registerMap("china", this.china);
         this.renderMap("china", this.dataToolTip);
@@ -333,18 +337,113 @@ export default {
     },
     // 渲染地图
     renderMap(mamName, data) {
-      debugger;
       let vm = this;
       this.baseOption.series = [
         {
-          name: mamName,
-          type: "effectScatter",
+          name: "散点",
+          type: "scatter",
           coordinateSystem: "geo",
           data: vm.convertData(vm.geoCoordMap, data),
-          encode: {
-            value: 2
+          symbolSize: function(val) {
+            return val[2] / 10;
           },
-          symbolSize: 12,
+          label: {
+            normal: {
+              formatter: "{b}",
+              position: "right",
+              show: true
+            },
+            emphasis: {
+              show: true
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: "#05C3F9"
+            }
+          }
+        },
+        {
+          type: "map",
+          map: mamName,
+          geoIndex: 0,
+          aspectScale: 0.75, //长宽比
+          showLegendSymbol: false, // 存在legend时显示
+          label: {
+            normal: {
+              show: true
+            },
+            emphasis: {
+              show: false,
+              textStyle: {
+                color: "#fff"
+              }
+            }
+          },
+          roam: true,
+          itemStyle: {
+            normal: {
+              areaColor: "#031525",
+              borderColor: "#3B5077"
+            },
+            emphasis: {
+              areaColor: "#2B91B7"
+            }
+          },
+          animation: false,
+          data: data
+        },
+        {
+          name: "点",
+          type: "scatter",
+          coordinateSystem: "geo",
+          symbol: "pin", //气泡
+          symbolSize: function(val) {
+            let sizeVal = val[2] * 3;
+            if (sizeVal < 40) {
+              sizeVal = 40;
+            }
+            if (sizeVal > 130) {
+              sizeVal = 130;
+            }
+            return sizeVal;
+          },
+          label: {
+            normal: {
+              show: true,
+              textStyle: {
+                color: "#fff",
+                fontSize: 9
+              },
+              formatter: function(params) {
+                return params.value[2];
+              }
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: "#F62157" //标志颜色
+            }
+          },
+          zlevel: 6,
+          data: vm.convertData(vm.geoCoordMap, data),
+          animation: false
+        },
+        {
+          name: "Top 5",
+          type: "effectScatter",
+          coordinateSystem: "geo",
+          data: vm.convertData(
+            vm.geoCoordMap,
+            data
+              .sort(function(a, b) {
+                return b.value - a.value;
+              })
+              .slice(0, 5)
+          ),
+          symbolSize: function(val) {
+            return val[2] / 1.2;
+          },
           showEffectOn: "render",
           rippleEffect: {
             brushType: "stroke"
@@ -354,38 +453,49 @@ export default {
             normal: {
               formatter: "{b}",
               position: "right",
-              show: false
+              show: true
             }
           },
           itemStyle: {
             normal: {
-              color: {
-                type: "radial",
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: "red" // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: "yellow" // 100% 处的颜色
-                  }
-                ],
-                global: false // 缺省为 false
-              },
+              color: "yellow",
               shadowBlur: 10,
-              shadowColor: "#fff"
+              shadowColor: "yellow"
             }
           },
           zlevel: 1
         }
       ];
+      this.baseOption.visualMap = {
+        show: true,
+        min: 0,
+        max: 20,
+        left: "left",
+        top: "bottom",
+        text: ["高", "低"], // 文本，默认为数值文本
+        calculable: true,
+        hoverLink: true,
+        seriesIndex: [1],
+        inRange: {
+          // color: ['#3B5077', '#031525'] // 蓝黑
+          // color: ["#ffc0cb", "#800080"] // 红紫
+          // color: ['#3C3B3F', '#605C3C'] // 黑绿
+          // color: ["#0f0c29", "#302b63", "#24243e"] // 黑紫黑
+          // color: ['#23074d', '#cc5333'] // 紫红
+          color: ["#00467F", "#A5CC82"] // 蓝绿
+          // color: ["#1488CC", "#2B32B2"] // 浅蓝
+          // color: ["#00467F", "#A5CC82"] // 蓝绿
+          // color: ['#00467F', '#A5CC82'] // 蓝绿
+          // color: ['#00467F', '#A5CC82'] // 蓝绿
+          // color: ['#00467F', '#A5CC82'] // 蓝绿
+        },
+        textStyle: {
+          color: yellow
+        }
+      };
       this.baseOption.geo = {
         map: mamName,
-        roam: false,
+        // roam: true, // 控制是地图是否可以放大缩小
         regions: [
           {
             name: "南海诸岛",

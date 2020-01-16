@@ -317,7 +317,6 @@ export default {
         vm.nodeTotal = 0;
       });
       this.chartInstance.on("click", params => {
-        console.log(params.name);
         this.getMap(params.name);
       });
     },

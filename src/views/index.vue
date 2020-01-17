@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import map_center from "@/views/Home.vue";
+import map_center from "@/views/center.vue";
 import map_left from "@/views/left.vue";
 import map_right from "@/views/right.vue";
 export default {

@@ -1,6 +1,15 @@
 <template>
   <div class="left_center">
     <h4 class="left_center_nav">
+      数据采集
+      <div>
+        <img src="../assets/img/line1.gif" />
+      </div>
+    </h4>
+    <div>
+      <leftTop></leftTop>
+    </div>
+    <h4 class="left_center_nav">
       社会服务
       <div>
         <img src="../assets/img/line1.gif" />
@@ -10,17 +19,17 @@
       <div class="swiper-container swiper2">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <div v-for="item in 12" :key="item" class="item_tip">
+            <div v-for="item in 6" :key="item" class="item_tip">
               茶叶产量低
             </div>
           </div>
           <div class="swiper-slide">
-            <div v-for="item in 12" :key="item" class="item_tip">
+            <div v-for="item in 6" :key="item" class="item_tip">
               茶叶除虫
             </div>
           </div>
           <div class="swiper-slide">
-            <div v-for="item in 12" :key="item" class="item_tip">
+            <div v-for="item in 6" :key="item" class="item_tip">
               茶叶浇水
             </div>
           </div>
@@ -33,10 +42,14 @@
 </template>
 
 <script>
+import leftTop from "./leftTop.vue";
 import Swiper from "swiper";
 export default {
   data() {
     return {};
+  },
+  components: {
+    leftTop
   },
   mounted() {
     this.$nextTick(() => {

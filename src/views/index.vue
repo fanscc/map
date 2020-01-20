@@ -7,6 +7,12 @@
             day
           }}&nbsp;&nbsp;{{ hours }}:{{ minutes }}:{{ seconds }}</span
         >
+        <button @click="switchCity('china')" class="mRl10 cursorPoint">
+          全国
+        </button>
+        <button @click="switchCity('city')" class="cursorPoint">
+          华南地区
+        </button>
       </div>
       <div style="font-size: 30px;line-height:60px">农科智慧农业(华南地区)</div>
       <div>
@@ -20,7 +26,8 @@
     </div>
     <div class="map_conten" style="display: flex">
       <map_left></map_left>
-      <map_center></map_center>
+      <map_center v-if="city === 'city'"></map_center>
+      <map_center_china v-if="city === 'china'"></map_center_china>
       <map_right></map_right>
     </div>
   </div>
@@ -28,6 +35,7 @@
 
 <script>
 import map_center from "@/views/center.vue";
+import map_center_china from "@/views/Home.vue";
 import map_left from "@/views/left.vue";
 import map_right from "@/views/right.vue";
 export default {
@@ -40,7 +48,8 @@ export default {
       hours: null,
       minutes: null,
       seconds: null,
-      timer: null
+      timer: null,
+      city: "china"
     };
   },
   mounted() {
@@ -85,11 +94,15 @@ export default {
         0: "日"
       };
       return objs[day];
+    },
+    switchCity(str) {
+      this.city = str;
     }
   },
   components: {
     map_left,
     map_center,
+    map_center_china,
     map_right
   }
 };
@@ -134,6 +147,12 @@ export default {
   .map_conten {
     height: calc(100% - 50px);
     overflow: hidden;
+  }
+  .mRl10 {
+    margin: 0 10px;
+  }
+  .cursorPoint {
+    cursor: pointer;
   }
 }
 </style>

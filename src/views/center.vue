@@ -46,10 +46,11 @@ export default {
       tooltip: {
         trigger: "item",
         formatter: function(params) {
+          debugger;
           return (
             params.name +
             " : " +
-            (params.value[2] ? params.value[2] : params.value)
+            (params.data.value[2] ? params.data.value[2] : 0)
           );
         },
         extraCssText: "height:20px;"
@@ -97,18 +98,42 @@ export default {
     },
     convertData(geoCoordMap, data) {
       let res = [];
+      debugger;
       for (let i = 0; i < data.length; i++) {
         let geoCoord = geoCoordMap[data[i].name];
         if (geoCoord) {
-          let valueArr = data[i].value;
+          let valueArr = data[i].value.slice(0); // [1,2]
           valueArr.push(geoCoord.value);
           res.push({
             name: data[i].name,
             value: valueArr
           });
+          valueArr = null;
         }
       }
       console.log(res);
+      return res;
+    },
+    mapConvertData(geoCoordMap, data) {
+      let res = [];
+      debugger;
+      for (let i = 0; i < data.length; i++) {
+        let geoCoord = geoCoordMap[data[i].name];
+        if (geoCoord) {
+          let valueArr = data[i].value.slice(0); // [1,2]
+          valueArr.push(geoCoord.value);
+          res.push({
+            name: data[i].name,
+            value: valueArr
+          });
+          valueArr = null;
+        } else {
+          res.push({
+            name: data[i].name,
+            value: data[i].value
+          });
+        }
+      }
       return res;
     },
     // 渲染地图
@@ -167,7 +192,7 @@ export default {
             }
           },
           animation: false,
-          data: data
+          data: vm.mapConvertData(vm.geoCoordMap, data)
         },
         {
           name: "点",
@@ -238,7 +263,7 @@ export default {
       this.baseOption.visualMap = {
         show: true,
         min: 0,
-        max: 20,
+        max: 30,
         left: "left",
         top: "bottom",
         text: ["高", "低"], // 文本，默认为数值文本
